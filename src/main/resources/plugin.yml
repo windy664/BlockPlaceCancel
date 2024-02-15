@@ -1,0 +1,4 @@
+name: BlockPlaceCancel
+version: '${version}'
+main: org.windy.blockplacecancel.BlockPlaceCancel
+api-version: '1.20'
