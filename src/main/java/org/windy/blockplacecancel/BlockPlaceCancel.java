@@ -21,13 +21,16 @@ public class BlockPlaceCancel extends JavaPlugin implements Listener {
         }
 
         // 获取放置的方块
-        Material placedType = event.getBlockPlaced().getType();
+        org.bukkit.block.Block placedBlock = event.getBlockPlaced();
+        Material placedType = placedBlock.getType();
 
-        // 检查放置的方块是否以"tconstruct"或"CREAte"开头，并且周围有另一种以这两个开头的方块
-        if ((placedType.name().startsWith("TCONSTRUCT") || placedType.name().startsWith("CREATE")) &&
-                (hasAdjacentBlock(event.getBlockPlaced(), "TCONSTRUCT") || hasAdjacentBlock(event.getBlockPlaced(), "CREATE"))) {
-            event.setCancelled(true);
-            event.getPlayer().sendMessage("不能摆放这两种方块相邻放置！");
+        // 检查放置的方块是否是限制方块
+        if (placedType.name().startsWith("TCONSTRUCT") || placedType.name().startsWith("CREATE")) {
+            // 检查周围是否有另一个限制方块
+            if (hasAdjacentBlock(placedBlock, "TCONSTRUCT") && hasAdjacentBlock(placedBlock, "CREATE")) {
+                event.setCancelled(true);
+                event.getPlayer().sendMessage("不能摆放两种限制方块相邻放置！");
+            }
         }
     }
 
