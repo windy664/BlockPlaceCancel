@@ -16,6 +16,14 @@ public class BlockPlaceCancel extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
+        if (event.getPlayer().getName().toUpperCase().contains("AS-FAKEPLAYER") ||
+                event.getPlayer().getName().toUpperCase().contains("[MINECRAFT]") ||
+                event.getPlayer().getName().toUpperCase().contains("[MEKANISM]") ||
+                event.getPlayer().getName().toUpperCase().contains("[CREATE]") ||
+                event.getPlayer().getName().toUpperCase().contains("[Deployer]") ||
+                event.getPlayer().getName().toUpperCase().contains("[IF]")) {
+            return;
+        }
         if (event.isCancelled()) {
             return;
         }
