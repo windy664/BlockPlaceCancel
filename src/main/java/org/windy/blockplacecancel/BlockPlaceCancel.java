@@ -1,5 +1,6 @@
 package org.windy.blockplacecancel; // 包声明
 
+import com.SelfHome.Main;
 import com.Util.Home;
 import com.Util.HomeAPI;
 import org.bukkit.Bukkit;
@@ -16,11 +17,12 @@ import java.io.IOException;
 
 
 
-public class BlockPlaceCancel extends JavaPlugin implements Listener { // 定义类BlockPlaceCancel，继承自JavaPlugin并实现Listener接口
+public class BlockPlaceCancel extends JavaPlugin implements Listener {
+    private boolean enablesh; // 定义类BlockPlaceCancel，继承自JavaPlugin并实现Listener接口
     @Override
     public void onEnable() { // 覆盖父类的onEnable方法
         this.saveDefaultConfig(); // 保存默认配置
-        Bukkit.getPluginManager().registerEvents(this, this); // 注册事件监听器
+        Bukkit.getPluginManager().registerEvents(this, this);
         String version = this.getDescription().getVersion();
         String serverName = this.getServer().getName();
         this.getServer().getConsoleSender().sendMessage(Texts.logo);
@@ -28,8 +30,10 @@ public class BlockPlaceCancel extends JavaPlugin implements Listener { // 定义
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             this.getServer().getConsoleSender().sendMessage("检测到PlaceholderAPI，已兼容！");
         }
-        if (Bukkit.getPluginManager().getPlugin("SelfHomeMain") != null) {
+        if (Bukkit.getPluginManager().getPlugin("SelfHomeMain") != null && !Main.JavaPlugin.getConfig().getBoolean("CustomTileMax")) {
             this.getServer().getConsoleSender().sendMessage("检测到SelfHomeMain，已兼容！");
+        }else{
+            enablesh = false;
         }
     }
 
@@ -60,7 +64,7 @@ public class BlockPlaceCancel extends JavaPlugin implements Listener { // 定义
             return;
         }
         boolean sh = this.getConfig().getBoolean("SelfHomeMain.enable");
-        if (sh) {
+        if (sh && !enablesh) {
             Configuration config = getConfig();
             SelfHome.executeIfSh(event, config);
         }
