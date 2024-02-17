@@ -1,3 +1,9 @@
+#只能填写两个不能相邻的方块
+Overall-Situation:
+  A: TCONSTRUCT
+  B: CREATE
+  #支持PlaceholderAPI
+  Tip: '不能摆放两种限制方块相邻放置！'
 SelfHomeMain:
   #启用SelfHomeMain插件兼容
   enable: true

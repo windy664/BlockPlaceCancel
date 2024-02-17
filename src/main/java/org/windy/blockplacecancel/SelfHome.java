@@ -35,7 +35,7 @@ public class SelfHome {
         String contain_nbr = ""; //用于模糊检测
         int MaxThisTile = 0; // 初始化最大方块数
 
-        if(CheckA) {
+        if(CheckA) {//精准检测
             for (String s : TileListA) { // 遍历TileList列表
                 String[] temp = ((String) s).split("\\|"); // 分割字符串
                 if (temp[0].equalsIgnoreCase("chunk")) // 如果第一个参数是"chunk"
@@ -48,7 +48,7 @@ public class SelfHome {
                     }
                 }
             }
-        }else if(CheckR)
+        }else if(CheckR)//模糊检测
         {
             for (String s : TileListR) { // 遍历TileList列表
                 String[] temp = ((String) s).split("\\|"); // 分割字符串
@@ -124,31 +124,16 @@ public class SelfHome {
         }
 
         if (NowAmount + 1 <= MaxThisTile) { // 如果当前方块数加一小于等于最大方块数
-            String temp = Variable.Lang_YML.getString("PlaceMaxTile"); // 获取消息模板
-            if (temp.contains("<Now>")) { // 替换模板中的当前方块数
-                temp = temp.replace("<Now>", String.valueOf(NowAmount + 1));
+            if (CheckA && CheckR) {
+                p.sendMessage(contain_nbt + "|" + (NowAmount + 1) + "/" + MaxThisTile);
+                p.sendMessage(contain_nbr + "|" + (NowAmount + 1) + "/" + MaxThisTile);
+            } else if (CheckA) {
+                // 只处理CheckA的情况
+                p.sendMessage(contain_nbt + "|" + (NowAmount + 1) + "/" + MaxThisTile); // 发送消息
+            } else if (CheckR) {
+                // 只处理CheckR的情况
+                p.sendMessage(contain_nbr + "|" + (NowAmount + 1) + "/" + MaxThisTile); // 发送消息
             }
-            if (temp.contains("<Max>")) { // 替换模板中的最大方块数
-                temp = temp.replace("<Max>", String.valueOf(MaxThisTile));
-            }
-            if (temp.contains("<NBT>")) { // 替换模板中的NBT字符串
-                temp = temp.replace("<NBT>", String.valueOf(contain_nbt));
-            }
-            p.sendMessage(temp); // 发送消息
-        } else {
-            String temp = Variable.Lang_YML.getString("PlaceReachMaxTile"); // 获取消息模板
-            if (temp.contains("<Now>")) { // 替换模板中的当前方块数
-                temp = temp.replace("<Now>", String.valueOf(NowAmount));
-            }
-            if (temp.contains("<Max>")) { // 替换模板中的最大方块数
-                temp = temp.replace("<Max>", String.valueOf(MaxThisTile));
-            }
-            if (temp.contains("<NBT>")) { // 替换模板中的NBT字符串
-                temp = temp.replace("<NBT>", String.valueOf(contain_nbt));
-            }
-            event.setCancelled(true); // 取消事件
-            p.sendMessage(temp); // 发送消息
         }
-
     }
 }
