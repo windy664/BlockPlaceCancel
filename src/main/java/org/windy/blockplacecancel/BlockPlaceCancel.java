@@ -33,6 +33,13 @@ public class BlockPlaceCancel extends JavaPlugin implements Listener {
         }
         if (Bukkit.getPluginManager().getPlugin("SelfHomeMain") != null /*&& !Main.JavaPlugin.getConfig().getBoolean("CustomTileMax")*/) {
             this.getServer().getConsoleSender().sendMessage("检测到SelfHomeMain，已兼容！");
+            if(this.getConfig().getBoolean("SelfHomeMain.enable")){
+                this.getServer().getConsoleSender().sendMessage("sh联动已启动，");
+            }
+            if(this.getConfig().getBoolean("SelfHomeMain.CheckA")) {
+                this.getServer().getConsoleSender().sendMessage("精准检测已开启，");
+                this.getServer().getConsoleSender().sendMessage(this.getConfig().getString("SelfHomeMain.TileListA"));
+            }
         }else{
             enablesh = false;
         }
@@ -66,7 +73,6 @@ public class BlockPlaceCancel extends JavaPlugin implements Listener {
         }
         boolean sh = this.getConfig().getBoolean("SelfHomeMain.enable");
         if (sh && !enablesh) {
-            this.getServer().getConsoleSender().sendMessage("检测到SelfHomeMain联动开始，");
             Configuration config = getConfig();
             SelfHome.executeIfSh(event, config);
         }

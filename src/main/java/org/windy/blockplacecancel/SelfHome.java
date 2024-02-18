@@ -36,6 +36,7 @@ public class SelfHome {
         int MaxThisTile = 0; // 初始化最大方块数
 
         if(CheckA) {//精准检测
+
             for (String s : TileListA) { // 遍历TileList列表
                 String[] temp = ((String) s).split("\\|"); // 分割字符串
                 if (temp[0].equalsIgnoreCase("chunk")) // 如果第一个参数是"chunk"
