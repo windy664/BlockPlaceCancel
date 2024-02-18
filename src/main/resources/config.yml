@@ -10,7 +10,9 @@ SelfHomeMain:
   EnableClearExtraBlocks: false
   #精准检测，SelfHomeMain插件自带模糊检测
   TileList:
-    - chunk|HOPPER|1
+    chunk:
+      -
+    world:
 
 
 
