@@ -19,6 +19,7 @@ import java.io.IOException;
 
 public class BlockPlaceCancel extends JavaPlugin implements Listener {
     private boolean enablesh; // 定义类BlockPlaceCancel，继承自JavaPlugin并实现Listener接口
+
     @Override
     public void onEnable() { // 覆盖父类的onEnable方法
         this.saveDefaultConfig(); // 保存默认配置
@@ -65,6 +66,7 @@ public class BlockPlaceCancel extends JavaPlugin implements Listener {
         }
         boolean sh = this.getConfig().getBoolean("SelfHomeMain.enable");
         if (sh && !enablesh) {
+            this.getServer().getConsoleSender().sendMessage("检测到SelfHomeMain联动开始，");
             Configuration config = getConfig();
             SelfHome.executeIfSh(event, config);
         }
