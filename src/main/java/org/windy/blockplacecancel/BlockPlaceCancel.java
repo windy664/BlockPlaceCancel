@@ -30,7 +30,7 @@ public class BlockPlaceCancel extends JavaPlugin implements Listener {
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             this.getServer().getConsoleSender().sendMessage("检测到PlaceholderAPI，已兼容！");
         }
-        if (Bukkit.getPluginManager().getPlugin("SelfHomeMain") != null && !Main.JavaPlugin.getConfig().getBoolean("CustomTileMax")) {
+        if (Bukkit.getPluginManager().getPlugin("SelfHomeMain") != null /*&& !Main.JavaPlugin.getConfig().getBoolean("CustomTileMax")*/) {
             this.getServer().getConsoleSender().sendMessage("检测到SelfHomeMain，已兼容！");
         }else{
             enablesh = false;
