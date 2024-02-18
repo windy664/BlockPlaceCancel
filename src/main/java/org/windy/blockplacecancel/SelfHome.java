@@ -12,7 +12,10 @@ import org.bukkit.event.block.BlockPlaceEvent;
 
 import java.util.List;
 
+import java.util.logging.Logger;
+
 public class SelfHome {
+    private static final Logger LOGGER = Logger.getLogger(SelfHome.class.getName());
 
     public static void executeIfSh(BlockPlaceEvent event, Configuration config) {
         Player player = event.getPlayer();
@@ -27,6 +30,7 @@ public class SelfHome {
         if (isBlocked(block, tileListChunk, "chunk")) {
             event.setCancelled(true);
             player.sendMessage(Variable.Lang_YML.getString("PlaceReachMaxTile"));
+            LOGGER.info("Player " + player.getName() + " attempted to place a block, but the maximum limit was reached in the chunk.");
             return;
         }
 
@@ -35,6 +39,7 @@ public class SelfHome {
         if (home != null && isBlocked(block, tileListWorld, "world")) {
             event.setCancelled(true);
             player.sendMessage(Variable.Lang_YML.getString("PlaceReachMaxTile"));
+            LOGGER.info("Player " + player.getName() + " attempted to place a block, but the maximum limit was reached in the world.");
         }
     }
 
